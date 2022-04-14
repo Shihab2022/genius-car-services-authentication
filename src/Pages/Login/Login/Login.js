@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import {  Form } from 'react-bootstrap';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import SocialLogin from '../SocialLogin/SocialLogin';
@@ -22,6 +22,10 @@ const Login = () => {
         navigate(from, { replace: true });
     }
 
+    const [sendPasswordResetEmail] = useSendPasswordResetEmail(
+        auth
+      );
+
     const handleSubmit = event => {
         event.preventDefault();
         const email = emailRef.current.value;
@@ -33,6 +37,11 @@ const Login = () => {
     const navigateRegister = event => {
         navigate('/register');
     }
+    const resetPassword =async () => {
+        const email = emailRef.current.value;
+        await sendPasswordResetEmail(email);
+        alert('Sent email');
+      }
 
     return (
         <div className='container w-50 mx-auto shadow-lg py-4 px-5 border rounded-3 mt-4'>
@@ -53,7 +62,10 @@ const Login = () => {
                
                 <input type="submit" className="bg-primary d-block w-100  py-2 border rounded my-4 text-white fs-4" value="Register" />
             </Form>
-            <p>New to Genius Car? <Link to="/register" className='text-danger pe-auto text-decoration-none' onClick={navigateRegister}>Please Register</Link> </p>
+            <div className="d-flex justify-content-between">
+            <p>New to Genius Car? <Link to="/register" className='text-primary pe-auto text-decoration-none' onClick={navigateRegister}>Please Register</Link> </p>
+            <p>Forget Password ? <Link to="/register" className='text-primary pe-auto text-decoration-none' onClick={resetPassword}>Reset Password</Link> </p>
+            </div>
         <SocialLogin></SocialLogin>
         </div>
     );
