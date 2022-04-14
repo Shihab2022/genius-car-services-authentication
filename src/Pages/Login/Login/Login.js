@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import {  Form } from 'react-bootstrap';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
+import SocialLogin from '../SocialLogin/SocialLogin';
 
 const Login = () => {
     const emailRef = useRef('');
@@ -14,9 +15,7 @@ const Login = () => {
 
     const [
         signInWithEmailAndPassword,
-        user,
-        loading,
-        error,
+        user
     ] = useSignInWithEmailAndPassword(auth);
 
     if (user) {
@@ -36,7 +35,7 @@ const Login = () => {
     }
 
     return (
-        <div className='container w-50 mx-auto'>
+        <div className='container w-50 mx-auto shadow-lg py-4 px-5 border rounded-3 mt-4'>
             <h2 className='text-primary text-center mt-2'>Please Login</h2>
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -51,14 +50,11 @@ const Login = () => {
                     <Form.Label>Password</Form.Label>
                     <Form.Control ref={passwordRef} type="password" placeholder="Password" required />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
-                </Form.Group>
-                <Button variant="primary" type="submit">
-                    Submit
-                </Button>
+               
+                <input type="submit" className="bg-primary d-block w-100  py-2 border rounded my-4 text-white fs-4" value="Register" />
             </Form>
             <p>New to Genius Car? <Link to="/register" className='text-danger pe-auto text-decoration-none' onClick={navigateRegister}>Please Register</Link> </p>
+        <SocialLogin></SocialLogin>
         </div>
     );
 };
