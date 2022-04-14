@@ -30,8 +30,8 @@ const Register = () => {
     }
 
     return (
-        <div className='register-form  shadow-lg py-4 px-5 border mt-3 rounded-3cl'>
-            <h2 style={{textAlign: 'center'}}>Please Register</h2>
+        <div className='register-form  shadow-lg py-4 px-5 border mt-3 rounded-3'>
+            <h2 style={{textAlign: 'center'}} className='fs-secondary'>Please Register</h2>
             <form onSubmit={handleRegister}>
                 <input type="text" name="name" id="" placeholder='Your Name'/>
                 
